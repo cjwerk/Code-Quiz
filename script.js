@@ -51,64 +51,65 @@ var questions = [
 var SCORE_POINTS = 100
 var MAX_QUESTIONS = 4
 
-  startGame = () => {
-      questionCounter = 0
-      score = 0
-      availbleQuestions = [...questions]
-      getNewQuestion()
-  }
+startGame = () => {
+    questionCounter = 0
+    score = 0
+    availableQuestions = [...questions]
+    getNewQuestion()
+}
 
-  getNewQuestion = () => {
-   if(availbleQuestions.length === 0 || questionCounter > MAX_QUESTIONS) {
+getNewQuestion = () => {
+    if(availableQuestions.length === 0 || questionCounter > MAX_QUESTIONS) {
         localStorage.setItem('mostRecentScore', score)
-        
+
         return window.location.assign('./end.html')
-   }
-   questionCounter++
-   progressText.innerText = `Question ${questionCounter} of ${MAX_QUESTIONS}`
-   progressBarFull.style.width = `${(questionCounter/MAX_QUESTIONS) * 100}%`
+    }
 
-   var questionIndex = Math.floor(Math.random() * availbleQuestions.length)
-   currentQuestion = availbleQuestions[questionIndex]
-   question.innerText = currentQuestion.question
+    questionCounter++
+    progressText.innerText = `Question ${questionCounter} of ${MAX_QUESTIONS}`
+    progressBarFull.style.width = `${(questionCounter/MAX_QUESTIONS) * 100}%`
+    
+    var questionsIndex = Math.floor(Math.random() * availableQuestions.length)
+    currentQuestion = availableQuestions[questionsIndex]
+    question.innerText = currentQuestion.question
 
-   choices.forEach(choice => {
-       var number = choice.dataset['number']
-       choice.innerText = currentQuestion['choice' + number]
-   })
-  
-availbleQuestions.splice(questionIndex, 1)
+    choices.forEach(choice => {
+        var number = choice.dataset['number']
+        choice.innerText = currentQuestion['choice' + number]
+    })
 
-acceptingAnswers = true
-  }
-  choices.forEach(choice => {
-      choice.addEventListener('click', e => {
-          if(!acceptingAnswers) return
-          acceptingAnswers = false
-          var selectedChoice = e.target
-          var selectedAnswer = selectedChoice.dataset['number']
+    availableQuestions.splice(questionsIndex, 1)
 
-          var classToApply = selectedAnswer === currentQuestion.answer ? 'correct' :
-          'incorrect'
+    acceptingAnswers = true
+}
 
-          if(classToApply === 'correct') {
-              increment(SCORE_POINTS)
-          }
+choices.forEach(choice => {
+    choice.addEventListener('click', e => {
+        if(!acceptingAnswers) return
 
-          selectedChoice.parentElement.classList.add(classToApply)
+        acceptingAnswers = false
+        var selectedChoice = e.target
+        var selectedAnswer = selectedChoice.dataset['number']
 
-          setTimeout(() => {
-              selectedChoice.parentElement.classList.remove(classToApply)
-              getNewQuestion()
-          }, 1000)
+        var classToApply = selectedAnswer == currentQuestion.answer ? 'correct' : 'incorrect'
 
+        if(classToApply === 'correct') {
+            incrementScore(SCORE_POINTS)
+        }
 
-      }) 
-  })
+        selectedChoice.parentElement.classList.add(classToApply)
 
-  incrementScore = number => {
-      score +=number
-      scoreText.innerText = score
-  }
-  
-  startGame()
+        setTimeout(() => {
+            selectedChoice.parentElement.classList.remove(classToApply)
+            getNewQuestion()
+
+        }, 1000)
+    })
+})
+
+incrementScore = num => {
+    score +=num
+    scoreText.innerText = score
+}
+
+startGame()
