@@ -23,14 +23,14 @@ function startTimer(duration, display) {
             timer--;
         } else if (!acceptingAnswers) {
             timer -= 10
-        } else if (timer === 1) {
-            return window.location.assign('./end.html') 
         } 
     }, 1000);
 }
 function stopTimer() {
     if(timer === 0){
         clearInterval(timer)
+        return window.location.assign('./end.html') 
+
     }
 }
 
