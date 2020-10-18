@@ -4,6 +4,41 @@ var progressText = document.querySelector('#progressText');
 var scoreText = document.querySelector('#score');
 var progressBarFull = document.querySelector('#progressBarFull');
 
+
+function startTimer(duration, display) {
+    var timer = duration, minutes, seconds;
+    setInterval(function () {
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = minutes + ":" + seconds;
+
+        if (--timer < 0) {
+            timer = duration;
+        }
+     else if (timer === 1) {
+        timer = timer  + ' seconds remaining';
+        timer--;
+    }else if(selectedAnswer === 'incorrect') {
+       timer - 10
+   } else if(timer === 0) {
+       return window.location.assign('./end.html')
+    } else {
+        timer.textContent = '';
+        clearInterval(timer);
+     
+    }}, 1000);
+}
+
+window.onload = function () {
+    var fiveMinutes = 60 * 5,
+        display = document.querySelector('#progressBarFull');
+    startTimer(fiveMinutes, display);
+};
+
 var currentQuestion = {}
 var acceptingAnswers = true
 var score = 0
@@ -21,7 +56,7 @@ var questions = [
     },
 
     {
-        question: 'Where is the correct place to insert a JavaScipt?',
+        question: 'Where is the correct place to insert a JavaScipt element?',
         choice1: 'Head',
         choice2: 'Body',
         choice3: 'Head & Body',
@@ -30,7 +65,7 @@ var questions = [
   },
 
   {
-    question: 'What are JavaScipts Data Types?',
+    question: 'What are JavaScipts Primative Data Types?',
     choice1: 'String, Boolean, Number, Null, undefined',
     choice2: 'Boolean and Object',
     choice3: 'Undefined and Null',
@@ -39,7 +74,7 @@ var questions = [
 },
 
 {
-    question: 'What company developed JavaScript?',
+    question: 'Which company developed JavaScript?',
     choice1: 'Apple',
     choice2: 'Microsoft',
     choice3: 'Marvel',
@@ -113,3 +148,4 @@ incrementScore = num => {
 }
 
 startGame()
+
