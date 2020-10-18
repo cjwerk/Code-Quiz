@@ -1,1 +1,3 @@
 # Code-Quiz
+
+    You think you know coding? You think you know JavaScript? Put your knowledege to the test with this code quiz on JavaScript, in this test there is several questing trying to tesk your knowledege. After you take you test see how you rank up against others by logging your score and checking out the highscores. But watch out against that ticking, clock you only have 5 minutes to complete the quiz and if you get a question wrong you lose 10 seconds on your timer. Go check it out now on Githup repo https://github.com/cjwerk/Code-Quiz and the live website at https://cjwerk.github.io/Code-Quiz/ have fun!

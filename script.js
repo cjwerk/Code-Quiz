@@ -19,18 +19,19 @@ function startTimer(duration, display) {
         if (--timer < 0) {
             timer = duration;
         }
-     else if (timer === 1) {
-        timer = timer  + ' seconds remaining';
-        timer--;
-    }else if(selectedAnswer === 'incorrect') {
-       timer - 10
-   } else if(timer === 0) {
-       return window.location.assign('./end.html')
-    } else {
-        timer.textContent = '';
-        clearInterval(timer);
-     
-    }}, 1000);
+        else if (timer <= 1) {
+            timer--;
+        } else if (!acceptingAnswers) {
+            timer -= 10
+        } else if (timer === 1) {
+            return window.location.assign('./end.html') 
+        } 
+    }, 1000);
+}
+function stopTimer() {
+    if(timer === 0){
+        clearInterval(timer)
+    }
 }
 
 window.onload = function () {
@@ -47,40 +48,40 @@ var availbleQuestions = []
 
 var questions = [
     {
-          question: 'Inside which HTML element do we put the JavaScript?',
-          choice1: 'scripting',
-          choice2: 'js',
-          choice3: 'javascipt',
-          choice4: 'script',
-          answer: 4,
+        question: 'Inside which HTML element do we put the JavaScript tag?',
+        choice1: '<scripting>',
+        choice2: '<js>',
+        choice3: '<javascipt>',
+        choice4: '<script>',
+        answer: 4,
     },
 
     {
         question: 'Where is the correct place to insert a JavaScipt element?',
-        choice1: 'Head',
-        choice2: 'Body',
-        choice3: 'Head & Body',
+        choice1: '<Head>',
+        choice2: '<Body>',
+        choice3: '<Head> & <Body>',
         choice4: 'Nowhere',
         answer: 2,
-  },
+    },
 
-  {
-    question: 'What are JavaScipts Primative Data Types?',
-    choice1: 'String, Boolean, Number, Null, undefined',
-    choice2: 'Boolean and Object',
-    choice3: 'Undefined and Null',
-    choice4: 'Number and String',
-    answer: 1,
-},
+    {
+        question: 'What are JavaScipts Primative Data Types?',
+        choice1: 'String, Boolean, Number, Null, undefined',
+        choice2: 'Boolean and Object',
+        choice3: 'Undefined and Null',
+        choice4: 'Number and String',
+        answer: 1,
+    },
 
-{
-    question: 'Which company developed JavaScript?',
-    choice1: 'Apple',
-    choice2: 'Microsoft',
-    choice3: 'Marvel',
-    choice4: 'Netscape',
-    answer: 4,
-},
+    {
+        question: 'Which company developed JavaScript?',
+        choice1: 'Apple',
+        choice2: 'Microsoft',
+        choice3: 'Marvel',
+        choice4: 'Netscape',
+        answer: 4,
+    },
 ]
 
 var SCORE_POINTS = 100
@@ -94,7 +95,7 @@ startGame = () => {
 }
 
 getNewQuestion = () => {
-    if(availableQuestions.length === 0 || questionCounter > MAX_QUESTIONS) {
+    if (availableQuestions.length === 0 || questionCounter > MAX_QUESTIONS) {
         localStorage.setItem('mostRecentScore', score)
 
         return window.location.assign('./end.html')
@@ -102,8 +103,8 @@ getNewQuestion = () => {
 
     questionCounter++
     progressText.innerText = `Question ${questionCounter} of ${MAX_QUESTIONS}`
-    progressBarFull.style.width = `${(questionCounter/MAX_QUESTIONS) * 100}%`
-    
+    progressBarFull.style.width = `${(questionCounter / MAX_QUESTIONS) * 100}%`
+
     var questionsIndex = Math.floor(Math.random() * availableQuestions.length)
     currentQuestion = availableQuestions[questionsIndex]
     question.innerText = currentQuestion.question
@@ -120,7 +121,7 @@ getNewQuestion = () => {
 
 choices.forEach(choice => {
     choice.addEventListener('click', e => {
-        if(!acceptingAnswers) return
+        if (!acceptingAnswers) return
 
         acceptingAnswers = false
         var selectedChoice = e.target
@@ -128,7 +129,7 @@ choices.forEach(choice => {
 
         var classToApply = selectedAnswer == currentQuestion.answer ? 'correct' : 'incorrect'
 
-        if(classToApply === 'correct') {
+        if (classToApply === 'correct') {
             incrementScore(SCORE_POINTS)
         }
 
@@ -143,7 +144,7 @@ choices.forEach(choice => {
 })
 
 incrementScore = num => {
-    score +=num
+    score += num
     scoreText.innerText = score
 }
 
