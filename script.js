@@ -68,8 +68,8 @@ var questions = [
     {
         question: 'What are JavaScipts Primative Data Types?',
         choice1: 'String, Boolean, Number, Null, undefined',
-        choice2: 'Boolean and Object',
-        choice3: 'Undefined and Null',
+        choice2: 'Boolean, Object, Array',
+        choice3: 'Undefined, Null, NAN',
         choice4: 'Number and String',
         answer: 1,
     },
@@ -81,6 +81,14 @@ var questions = [
         choice3: 'Marvel',
         choice4: 'Netscape',
         answer: 4,
+    },
+    {
+        question: 'How do you write "Hello World" in an alert box?',
+        choice1: `msg("Hello World"`,
+        choice2: `msgBox("Hello World")`,
+        choice3: `alert("Hello World");`,
+        choice4: `alertBox(Hello World");`,
+        answer: 3,
     },
 ]
 
