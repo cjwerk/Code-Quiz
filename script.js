@@ -93,7 +93,7 @@ var questions = [
 ]
 
 var SCORE_POINTS = 100
-var MAX_QUESTIONS = 4
+var MAX_QUESTIONS = 5
 
 startGame = () => {
     questionCounter = 0
